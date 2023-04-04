@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paddlePrefab: {fileID: 6180487836776491544, guid: a3f89af0ff9f67a4896f7ceef5693b91, type: 3}
-  playerNum: 3
+  playerNum: 4
   playerBinds: 61000000640000006a0000006c00000014010000130100000401000006010000
   paddlePositions: []
   paddleScale: 5
