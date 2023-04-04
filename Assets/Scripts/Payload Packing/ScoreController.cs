@@ -9,6 +9,8 @@ public class ScoreController : MonoBehaviour
     public TextMeshProUGUI successText;
     [SerializeField]
     public TextMeshProUGUI failText;
+    [SerializeField]
+    public TextMeshProUGUI endText;
     private int score = 0;
     private int fail = 0;
 
@@ -33,6 +35,12 @@ public class ScoreController : MonoBehaviour
             failText.text = $"fail: {fail}";
             return;
         }
+        if(score == 8)
+        {
+            failText.text = $"Task complete!";
+            LevelBuilder.instance.StopCurrentLevel();
+        }
+
     }
 
     

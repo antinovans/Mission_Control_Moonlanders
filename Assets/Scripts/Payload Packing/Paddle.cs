@@ -41,8 +41,8 @@ public class Paddle : MonoBehaviour
         }
 
         // Rotate the paddle using AddTorque
-        // rb.AddTorque(rb.mass * rotationDirection * rotationSpeed * Time.deltaTime, ForceMode2D.Force);
-        transform.Rotate(0, 0, rotationDirection * rotationSpeed * Time.deltaTime);
+        rb.AddTorque(rb.mass * rotationDirection * rotationSpeed * Time.deltaTime, ForceMode2D.Force);
+        /*transform.Rotate(0, 0, rotationDirection * rotationSpeed * Time.deltaTime);*/
     }
     public void SetScale(int scale)
     {

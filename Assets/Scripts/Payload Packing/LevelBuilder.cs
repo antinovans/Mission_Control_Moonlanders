@@ -18,6 +18,20 @@ public class LevelBuilder : MonoBehaviour
     [Header("wall attribute")]
     public float wallThickness;
     public float wallHeight;
+
+    public static LevelBuilder instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+            return;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +114,10 @@ public class LevelBuilder : MonoBehaviour
             wall.transform.localScale = newScale;
             return;
         }
+    }
+    public void StopCurrentLevel()
+    {
+        StopCoroutine(InstantiatePayloads());
     }
 
 }
