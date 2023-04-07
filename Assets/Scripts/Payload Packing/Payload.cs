@@ -19,6 +19,7 @@ public class Payload : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _id = MultipleCameraController.instance.GetDictSize();
         MultipleCameraController.instance.AddTransformToList(transform, _id);
+        Utils.SetLengthAndHeightInWorldPosition(gameObject, 1.5f, 1.5f);
         EventManager.instance.onPayloadDestroyEvent += DestroyThis;
         // _rb.mass = _mass;
         // transform.localScale = new Vector3(transform.localScale.x * _size, transform.localScale.y * _size , 1);
@@ -29,10 +30,10 @@ public class Payload : MonoBehaviour
         EventManager.instance.onPayloadDestroyEvent -= DestroyThis;
         MultipleCameraController.instance.RemoveTransformFromDict(_id);
     }
-    public void SetSpriteColor(Color c)
-    {
-        GetComponent<SpriteRenderer>().color = c;
-    }
+    // public void SetSpriteColor(Color c)
+    // {
+    //     GetComponent<SpriteRenderer>().color = c;
+    // }
     public void SetMass(float mass)
     {
         _rb.mass = mass;

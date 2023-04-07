@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 260396692}
   - component: {fileID: 260396694}
   - component: {fileID: 260396695}
+  - component: {fileID: 260396696}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -543,14 +544,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce356a9106d9c142be2ef642299b1b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddlePrefab: {fileID: 6180487836776491544, guid: a3f89af0ff9f67a4896f7ceef5693b91, type: 3}
-  playerNum: 4
+  playerNum: 3
   playerBinds: 61000000640000006a0000006c00000014010000130100000401000006010000
   paddlePositions: []
   paddleScale: 5
-  paddleMass: 4
-  angularDrag: 1
+  paddleMass: 20
+  angularDrag: 5
   paddleOffset: 0.2
+  rotationSpeed: 50
 --- !u!4 &260396693
 Transform:
   m_ObjectHideFlags: 0
@@ -587,9 +588,9 @@ MonoBehaviour:
   - {fileID: 4385636429892622140, guid: abe7423b0c8e17e40acb6bf15c677ea2, type: 3}
   - {fileID: 177183940807159356, guid: 041fcc0f4aee6e2409f85451ea55ffe0, type: 3}
   - {fileID: 9047423507202857946, guid: d0b1944786c09834094d9d57456f6534, type: 3}
-  interval: 12
-  wallThickness: 0.25
-  wallHeight: 6
+  interval: 10
+  wallThickness: 0.5
+  wallHeight: 8
 --- !u!114 &260396695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,6 +603,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2eeaa197f8e05e49b5c2115eed1e9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &260396696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260396691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05120f7a71135a54aac0f4946d7b6cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paddleTexture:
+  - {fileID: 2800000, guid: 9cc6a71c6431c794da123c72fc84d7ba, type: 3}
+  - {fileID: 2800000, guid: 2189a687636ef784c967a2bbbe2bc8ba, type: 3}
+  - {fileID: 2800000, guid: f95a95e5d3cf5ca4f97b09e76d4dd80e, type: 3}
+  - {fileID: 2800000, guid: 3db87a531335eb047ae6bab697bc16b4, type: 3}
+  parent_paddle: {fileID: 7531523742289737574, guid: edd3b665d2ed3ae479767013d118721e, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: -10}
   smoothTime: 0.5
+  _dictSize: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

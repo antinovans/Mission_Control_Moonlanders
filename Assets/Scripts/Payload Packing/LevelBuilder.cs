@@ -81,7 +81,7 @@ public class LevelBuilder : MonoBehaviour
             UnityEngine.Random.Range(-1f, 0f)).normalized;
             GameObject payload = Instantiate(payloadsPrefab[UnityEngine.Random.Range(0, payloadsPrefab.Count)],
             pos, Quaternion.identity);
-            payload.GetComponent<Payload>().SetSpriteColor(UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f));
+            // payload.GetComponent<Payload>().SetSpriteColor(UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f));
             payload.GetComponent<Rigidbody2D>().mass = 0.2f;
             payload.GetComponent<Rigidbody2D>().AddForce(forceDir, ForceMode2D.Impulse);
             yield return new WaitForSeconds(interval);
@@ -98,20 +98,16 @@ public class LevelBuilder : MonoBehaviour
         {
             float height = Mathf.Abs(A.y - B.y);
             Vector2 midPoint = (A + B)/2;
-            Vector3 newScale = new Vector3(wallPrefab.transform.localScale.x * wallThickness, 
-            wallPrefab.transform.localScale.y * height, 1);
             GameObject wall = Instantiate(wallPrefab, midPoint, Quaternion.identity, transform);
-            wall.transform.localScale = newScale;
+            Utils.SetLengthAndHeightInWorldPosition(wall, wallThickness, height);
             return;
         }
         if(Mathf.Abs(A.y - B.y) < 0.1f)
         {
             float width = Mathf.Abs(A.x - B.x);
             Vector2 midPoint = (A + B)/2;
-            Vector3 newScale = new Vector3(wallPrefab.transform.localScale.x * width, 
-            wallPrefab.transform.localScale.y * wallThickness, 1);
             GameObject wall = Instantiate(wallPrefab, midPoint, Quaternion.identity, transform);
-            wall.transform.localScale = newScale;
+            Utils.SetLengthAndHeightInWorldPosition(wall, width, wallThickness);
             return;
         }
     }

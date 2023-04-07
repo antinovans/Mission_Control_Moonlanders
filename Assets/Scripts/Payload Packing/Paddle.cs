@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BoxCollider2D))]
+// [RequireComponent(typeof(Rigidbody))]
+// [RequireComponent(typeof(BoxCollider2D))]
 public class Paddle : MonoBehaviour
 {
-    public KeyCode leftkey;
-    public KeyCode rightkey;
-    public float rotationSpeed = 2000f; // The speed at which the paddle rotates
+    private KeyCode leftkey;
+    private KeyCode rightkey;
+    private float rotationSpeed = 2000f; // The speed at which the paddle rotates
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
     private int _id;
 
+    private void Awake() {
+        _rb = GetComponent<Rigidbody2D>();
+    }
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         _id = MultipleCameraController.instance.GetDictSize();
         MultipleCameraController.instance.AddTransformToList(transform, _id);
     }
@@ -41,17 +43,8 @@ public class Paddle : MonoBehaviour
         }
 
         // Rotate the paddle using AddTorque
-        rb.AddTorque(rb.mass * rotationDirection * rotationSpeed * Time.deltaTime, ForceMode2D.Force);
+        _rb.AddTorque(_rb.mass * rotationDirection * rotationSpeed * Time.deltaTime, ForceMode2D.Force);
         /*transform.Rotate(0, 0, rotationDirection * rotationSpeed * Time.deltaTime);*/
-    }
-    public void SetScale(int scale)
-    {
-        Vector3 newScale = new Vector3(transform.localScale.x * scale, transform.localScale.y, transform.localScale.z);
-        transform.localScale = newScale;
-    }
-    public void SetSpriteColor(Color c)
-    {
-        GetComponent<SpriteRenderer>().color = c;
     }
     public void SetLeftRotateKey(KeyCode k)
     {
@@ -61,4 +54,20 @@ public class Paddle : MonoBehaviour
     {
         rightkey = k;
     }
+    public void SetAngularDrag(float drag)
+    {
+        _rb.angularDrag = drag;
+    }
+    public void SetMass(float mass)
+    {
+        _rb.mass = mass;
+    }
+    public void SetRotationSpeed(float speed)
+    {
+        rotationSpeed = speed;
+    }
+    // public void SetPosition(Vector2 position)
+    // {
+    //     transform.position = position;
+    // }
 }

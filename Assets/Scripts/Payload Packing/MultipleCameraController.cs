@@ -10,10 +10,12 @@ public class MultipleCameraController : MonoBehaviour
     private Vector3 _centerPoint;
     public Vector3 offset;
     public float smoothTime = 0.5f;
+    [SerializeField]
     private int _dictSize = 0;
     // public float minZoom = 40f;
     // public float maxZoom = 10f;
     private Vector3 _velocity;
+    private Bounds _bound;
     private void Awake() {
         if(instance != null)
         {
@@ -49,12 +51,12 @@ public class MultipleCameraController : MonoBehaviour
             return;
         if(_targets.Count == 1)
             _centerPoint = _targets[0].position;
-        Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
+        _bound = new Bounds();
         foreach (var item in _targets)
         {
-            bounds.Encapsulate(item.Value.position);
+            _bound.Encapsulate(item.Value.position);
         }
-        _centerPoint = bounds.center;
+        _centerPoint = _bound.center;
     }
     public void AddTransformToList(Transform t, int key)
     {
@@ -68,6 +70,19 @@ public class MultipleCameraController : MonoBehaviour
     public void RemoveTransformFromDict(int key)
     {
         _targets.Remove(key);
+    }
+    private void OnDrawGizmos() {
+        if(Application.isPlaying)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawCube(_bound.min, Vector3.one);
+            Gizmos.DrawCube(_bound.max, Vector3.one);
+            Gizmos.color = Color.yellow;
+            foreach (var item in _targets)
+            {
+                Gizmos.DrawSphere(item.Value.position, 1);
+            }
+        }
     }
     // private float GetGreatestDistance()
     // {
