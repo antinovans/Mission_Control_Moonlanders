@@ -45,17 +45,17 @@ public class LevelBuilder : MonoBehaviour
         //build left and right wall
         float leftX = PaddleManager.instance.paddlePositions[0].x -
             PaddleManager.instance.paddleScale /2 - wallThickness;
-        /*BuildWallFromTwoPos(new Vector2(leftX, wallHeight), new Vector2(leftX, -wallHeight));*/
+        BuildWallFromTwoPos(new Vector2(leftX, wallHeight), new Vector2(leftX, -wallHeight));
         float rightX = PaddleManager.instance.paddlePositions[PaddleManager.instance.paddlePositions.Count - 1].x +
             PaddleManager.instance.paddleScale /2 + wallThickness;
-        /*BuildWallFromTwoPos(new Vector2(rightX, wallHeight), new Vector2(rightX, -wallHeight));*/
+        BuildWallFromTwoPos(new Vector2(rightX, wallHeight), new Vector2(rightX, -wallHeight));
         //building middle walls
         for(int i = 0; i < PaddleManager.instance.paddlePositions.Count - 1; i++)
         {
             float mid = (PaddleManager.instance.paddlePositions[i].x 
             + PaddleManager.instance.paddlePositions[i + 1].x) / 2;
-           /* BuildWallFromTwoPos(new Vector2(mid, PaddleManager.instance.paddlePositions[i].y - 0.5f), 
-            new Vector2(mid, -wallHeight + PaddleManager.instance.paddlePositions[i].y));*/
+            BuildWallFromTwoPos(new Vector2(mid, PaddleManager.instance.paddlePositions[i].y - 0.5f), 
+            new Vector2(mid, -wallHeight + PaddleManager.instance.paddlePositions[i].y));
         }
     }
     private void BuildCollectors()
@@ -65,8 +65,9 @@ public class LevelBuilder : MonoBehaviour
             // Debug.Log("bruh");
             Vector2 pos = new Vector2(PaddleManager.instance.paddlePositions[i].x, -wallHeight/2);
             GameObject collector = Instantiate(collectorsPrefab[i % collectorsPrefab.Count], pos, Quaternion.identity);
-            /*PayloadCollector pCollector = collector.GetComponent<PayloadCollector>();*/
-            /* pCollector?.SetScale(PaddleManager.instance.paddleScale * 0.75f);*/
+            PayloadCollector pCollector = collector.GetComponent<PayloadCollector>();
+            pCollector?.SetScale(PaddleManager.instance.paddleScale * 0.75f);
+            pCollector?.SetSpriteColor(UnityEngine.Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f, 0.2f, 0.4f));
         }
     }
     IEnumerator InstantiatePayloads()
