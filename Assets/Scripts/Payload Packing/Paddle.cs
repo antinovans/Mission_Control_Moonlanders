@@ -18,8 +18,8 @@ public class Paddle : MonoBehaviour
     }
     private void Start()
     {
-        _id = MultipleCameraController.instance.GetDictSize();
-        MultipleCameraController.instance.AddTransformToList(transform, _id);
+        // _id = MultipleCameraController.instance.GetDictSize();
+        // MultipleCameraController.instance.AddTransformToList(transform, _id);
     }
 
     private void FixedUpdate() {

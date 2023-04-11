@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Assertions;
 public class PaddleBuilder : MonoBehaviour
 {
     public static PaddleBuilder instance;
@@ -24,40 +24,40 @@ public class PaddleBuilder : MonoBehaviour
 
     //|---------|
     //l         r         
-    public Paddle BuildPadle(int playerNum, Vector2 position, float width, float height)
+    public Paddle BuildPadle(int playerNum, Vector2 position, float width)
     {
 
         GameObject left = new GameObject("left");
         left.AddComponent<SpriteRenderer>().sprite = _sprites[((playerNum * 3) % _sprites.Count) + 0];
         left.AddComponent<PolygonCollider2D>().usedByComposite = true;
-        Utils.SetLengthAndHeightInWorldPosition(left, 1.0f, height);
+        // Utils.SetLengthAndHeightInWorldPosition(left, 1.0f, height);
+        float leftLengthInWorld = (int)left.GetComponent<SpriteRenderer>().sprite.textureRect.width / (float)LevelBuilder.PIXEL_PER_UNIT;
         left.layer = 6;
+        // Debug.Log(leftLengthInWorld);
+        GameObject right = new GameObject("right");
+        right.AddComponent<SpriteRenderer>().sprite = _sprites[((playerNum * 3) % _sprites.Count)+ 2];
+        right.AddComponent<PolygonCollider2D>().usedByComposite = true;
+        // Utils.SetLengthAndHeightInWorldPosition(right, 1, height);
+        float rightLengthInWorld = (int)right.GetComponent<SpriteRenderer>().sprite.textureRect.width / (float)LevelBuilder.PIXEL_PER_UNIT;
+        right.layer = 6;
+
+        Assert.IsTrue(leftLengthInWorld + rightLengthInWorld < width);
 
         GameObject mid = new GameObject("mid");
         mid.AddComponent<SpriteRenderer>().sprite = _sprites[((playerNum * 3) % _sprites.Count) + 1];
         mid.AddComponent<PolygonCollider2D>().usedByComposite = true;
-        Utils.SetLengthAndHeightInWorldPosition(mid, width - 2, height);
+        // Utils.SetLengthAndHeightInWorldPosition(mid, width - 2, height);
+        float midLengthInWorld = (int)mid.GetComponent<SpriteRenderer>().sprite.textureRect.width / (float)LevelBuilder.PIXEL_PER_UNIT;
+        Utils.SetLengthAndHeightInWorldPosition(mid, width - leftLengthInWorld - rightLengthInWorld, 0, true);
+
         mid.layer = 6;
 
-        GameObject right = new GameObject("right");
-        right.AddComponent<SpriteRenderer>().sprite = _sprites[((playerNum * 3) % _sprites.Count)+ 2];
-        right.AddComponent<PolygonCollider2D>().usedByComposite = true;
-        Utils.SetLengthAndHeightInWorldPosition(right, 1, height);
-        right.layer = 6;
 
-        Vector3 midPos = new Vector3(left.transform.position.x + 0.5f  + (width - 2)/2, left.transform.position.y, 1);
+        Vector3 midPos = new Vector3(left.transform.position.x + leftLengthInWorld/2  + (width - leftLengthInWorld - rightLengthInWorld)/2, left.transform.position.y, 1);
         mid.transform.position = midPos;
-        Vector3 rightPos = new Vector3(midPos.x + (width - 2)/2 + 0.5f, left.transform.position.y, 1);
+        Vector3 rightPos = new Vector3(midPos.x + (width - leftLengthInWorld - rightLengthInWorld)/2 + rightLengthInWorld/2, left.transform.position.y, 1);
         right.transform.position = rightPos;
 
-        //create a parent gameobject that holds paddle pieces
-        // GameObject master = new GameObject("player " + playerNum);
-        // master.transform.position = mid.transform.position;
-        // master.AddComponent<CompositeCollider2D>();   //composite collider that encompasses colliders in child objs
-        // master.AddComponent<Rigidbody2D>();
-        // Rigidbody2D rb =  master.GetComponent<Rigidbody2D>();
-        // rb.constraints = RigidbodyConstraints2D.FreezePosition;
-        // master.layer = 6;   //set layer to "Paddle" layer
         GameObject master = Instantiate(parent_paddle);
         master.transform.position = mid.transform.position;
 

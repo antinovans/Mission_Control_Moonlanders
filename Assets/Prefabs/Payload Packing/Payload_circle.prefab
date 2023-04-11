@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4385636429892622137}
   - component: {fileID: 4385636429892622142}
   - component: {fileID: 4385636429892622139}
-  - component: {fileID: 2612431526813311815}
+  - component: {fileID: 8207309236107277943}
   m_Layer: 0
   m_Name: Payload_circle
   m_TagString: Untagged
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 0
---- !u!58 &2612431526813311815
+--- !u!58 &8207309236107277943
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,4 +136,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 25.52
+  m_Radius: 0.9375

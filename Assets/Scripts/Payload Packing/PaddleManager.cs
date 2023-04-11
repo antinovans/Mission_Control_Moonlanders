@@ -11,7 +11,7 @@ public class PaddleManager : MonoBehaviour
     public List<KeyCode> playerBinds;
     public List<Vector2> paddlePositions;
     [Header("Paddle attributes")]
-    public float paddleScale = 3; //default is 3.0f
+    public float paddleWidth = 3; //default is 3.0f
     public float paddleMass = 2.0f; //default is 2.0f
     public float angularDrag = 1.0f;
     public float paddleOffset = 0.2f;
@@ -29,8 +29,8 @@ public class PaddleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        paddleOffset = LevelBuilder.instance.GetWallStats().x;
         InitializePaddles();
-        
     }
     private void InitializePaddles()
     {
@@ -40,10 +40,9 @@ public class PaddleManager : MonoBehaviour
         for(int i = 0; i < playerNum; i++)
         {
             // int shouldOffset = i == 0 ? 0 : 1;
-            Vector2 paddlePosition = origin + new Vector2(i * paddleScale + 
-            paddleScale - i * paddleOffset, 0);
+            Vector2 paddlePosition = origin + new Vector2((2*i + 1) * (paddleWidth/2) + i * paddleOffset, 0);
             paddlePositions.Add(paddlePosition);
-            Paddle paddle = PaddleBuilder.instance.BuildPadle(i, paddlePosition, paddleScale, 1.0f);
+            Paddle paddle = PaddleBuilder.instance.BuildPadle(i, paddlePosition, paddleWidth);
             paddle.SetLeftRotateKey(playerBinds[i*2]);
             paddle.SetRightRotateKey(playerBinds[i*2 + 1]);
             paddle.SetAngularDrag(angularDrag);

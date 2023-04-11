@@ -19,7 +19,7 @@ public class Payload : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _id = MultipleCameraController.instance.GetDictSize();
         MultipleCameraController.instance.AddTransformToList(transform, _id);
-        Utils.SetLengthAndHeightInWorldPosition(gameObject, 1.5f, 1.5f);
+        Utils.SetLengthAndHeightInWorldPosition(gameObject, 1.5f, 1.5f, false);
         EventManager.instance.onPayloadDestroyEvent += DestroyThis;
         // _rb.mass = _mass;
         // transform.localScale = new Vector3(transform.localScale.x * _size, transform.localScale.y * _size , 1);

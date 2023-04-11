@@ -10,11 +10,13 @@ public class MultipleCameraController : MonoBehaviour
     private Vector3 _centerPoint;
     public Vector3 offset;
     public float smoothTime = 0.5f;
-    [SerializeField]
+    // [SerializeField]
     private int _dictSize = 0;
-    // public float minZoom = 40f;
-    // public float maxZoom = 10f;
+    public float minZoom = 40f;
+    public float maxZoom = 2f;
+    // public float zoomLimiter = 50f;
     private Vector3 _velocity;
+    private Camera _cam;
     private Bounds _bound;
     private void Awake() {
         if(instance != null)
@@ -25,24 +27,35 @@ public class MultipleCameraController : MonoBehaviour
         instance = this;
         _centerPoint = Vector3.zero;
         _targets = new Dictionary<int, Transform>();
+        _cam = GetComponent<Camera>();
+    }
+    private void Start() {
+        minZoom = PaddleManager.instance.playerNum * 1.8f; 
     }
     private void LateUpdate() {
         if(_targets.Count == 0)
             return;
         UpdateCameraPosition();
-        // UpdateCameraFOV();
+        UpdateCameraFOV();
     }
 
-    // private void UpdateCameraFOV()
-    // {
-    //     throw new NotImplementedException();
-    // }
+
 
     private void UpdateCameraPosition()
     {
         GetCenterPoint();
         Vector3 newPosition = _centerPoint + offset;
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref _velocity, smoothTime);
+    }
+    private void UpdateCameraFOV()
+    {
+        float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance());
+        _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, newZoom, Time.deltaTime);
+    }
+
+    float GetGreatestDistance()
+    {
+        return _bound.size.x;
     }
 
     private void GetCenterPoint()
