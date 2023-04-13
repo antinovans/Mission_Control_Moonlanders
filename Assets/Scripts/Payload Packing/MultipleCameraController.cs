@@ -18,6 +18,7 @@ public class MultipleCameraController : MonoBehaviour
     private Vector3 _velocity;
     private Camera _cam;
     private Bounds _bound;
+    float _aspectRatio;
     private void Awake() {
         if(instance != null)
         {
@@ -28,6 +29,7 @@ public class MultipleCameraController : MonoBehaviour
         _centerPoint = Vector3.zero;
         _targets = new Dictionary<int, Transform>();
         _cam = GetComponent<Camera>();
+        _aspectRatio = _cam.aspect;
     }
     private void Start() {
         minZoom = PaddleManager.instance.playerNum * 1.8f; 
@@ -49,13 +51,14 @@ public class MultipleCameraController : MonoBehaviour
     }
     private void UpdateCameraFOV()
     {
-        float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance());
-        _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, newZoom, Time.deltaTime);
+        // float newZoom = Mathf.Lerp(maxZoom, minZoom, GetGreatestDistance());
+        float newZoom = 1.1f * Mathf.Max(GetGreatestDistance().x / _aspectRatio, GetGreatestDistance().y); 
+        _cam.orthographicSize = Mathf.Lerp(_cam.orthographicSize, newZoom /2, Time.deltaTime);
     }
 
-    float GetGreatestDistance()
+    Vector2 GetGreatestDistance()
     {
-        return _bound.size.x;
+        return new Vector2(_bound.size.x, _bound.size.y);
     }
 
     private void GetCenterPoint()

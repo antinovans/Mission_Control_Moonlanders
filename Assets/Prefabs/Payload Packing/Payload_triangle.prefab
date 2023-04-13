@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1683397241484586853}
   - component: {fileID: 2770784454960858395}
   - component: {fileID: 7375525790585394540}
-  - component: {fileID: 565224121535323065}
+  - component: {fileID: 4575710615699026574}
   m_Layer: 0
-  m_Name: Payload_rectangle
+  m_Name: Payload_triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 04c860c4999cbe940b9114ee51f949f6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38a2e73d5c965234bb479ff319791f0f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b181d4c301d5b744694efc6b773e7d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 1
---- !u!61 &565224121535323065
-BoxCollider2D:
+  shape: 2
+--- !u!60 &4575710615699026574
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -144,6 +144,11 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.61, y: 1.61}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.090791225, y: 0.8125}
+      - {x: -0.80345154, y: -0.55839425}
+      - {x: -0.803452, y: -0.8034519}
+      - {x: 0.798975, y: -0.8034519}
+      - {x: 0.798975, y: -0.5628718}
+      - {x: 0.096385, y: 0.8125}

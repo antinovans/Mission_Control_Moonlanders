@@ -37,6 +37,7 @@ public class PaddleManager : MonoBehaviour
         Assert.IsNotNull(playerBinds);
         Vector2 origin = Vector2.zero;
         // Assert.IsNotNull(paddlePrefab);
+        GameObject parent = new GameObject("players");
         for(int i = 0; i < playerNum; i++)
         {
             // int shouldOffset = i == 0 ? 0 : 1;
@@ -48,13 +49,7 @@ public class PaddleManager : MonoBehaviour
             paddle.SetAngularDrag(angularDrag);
             paddle.SetMass(paddleMass);
             paddle.SetRotationSpeed(rotationSpeed);
-            // if(paddle.TryGetComponent<Paddle> (out Paddle p))
-            // {
-            //     p.SetLeftRotateKey(playerBinds[i*2]);
-            //     p.SetRightRotateKey(playerBinds[i*2 + 1]);
-            //     p.SetAngularDrag(angularDrag);
-            //     p.SetMass(paddleMass);
-            // }
+            paddle.transform.SetParent(parent.transform);
         }
     }
 }

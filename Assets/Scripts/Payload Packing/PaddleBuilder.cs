@@ -29,6 +29,7 @@ public class PaddleBuilder : MonoBehaviour
 
         GameObject left = new GameObject("left");
         left.AddComponent<SpriteRenderer>().sprite = _sprites[((playerNum * 3) % _sprites.Count) + 0];
+        left.GetComponent<SpriteRenderer>().sortingOrder = 1;
         left.AddComponent<PolygonCollider2D>().usedByComposite = true;
         // Utils.SetLengthAndHeightInWorldPosition(left, 1.0f, height);
         float leftLengthInWorld = (int)left.GetComponent<SpriteRenderer>().sprite.textureRect.width / (float)LevelBuilder.PIXEL_PER_UNIT;
@@ -36,6 +37,7 @@ public class PaddleBuilder : MonoBehaviour
         // Debug.Log(leftLengthInWorld);
         GameObject right = new GameObject("right");
         right.AddComponent<SpriteRenderer>().sprite = _sprites[((playerNum * 3) % _sprites.Count)+ 2];
+        right.GetComponent<SpriteRenderer>().sortingOrder = 1;
         right.AddComponent<PolygonCollider2D>().usedByComposite = true;
         // Utils.SetLengthAndHeightInWorldPosition(right, 1, height);
         float rightLengthInWorld = (int)right.GetComponent<SpriteRenderer>().sprite.textureRect.width / (float)LevelBuilder.PIXEL_PER_UNIT;
@@ -45,6 +47,7 @@ public class PaddleBuilder : MonoBehaviour
 
         GameObject mid = new GameObject("mid");
         mid.AddComponent<SpriteRenderer>().sprite = _sprites[((playerNum * 3) % _sprites.Count) + 1];
+        mid.GetComponent<SpriteRenderer>().sortingOrder = 1;
         mid.AddComponent<PolygonCollider2D>().usedByComposite = true;
         // Utils.SetLengthAndHeightInWorldPosition(mid, width - 2, height);
         float midLengthInWorld = (int)mid.GetComponent<SpriteRenderer>().sprite.textureRect.width / (float)LevelBuilder.PIXEL_PER_UNIT;

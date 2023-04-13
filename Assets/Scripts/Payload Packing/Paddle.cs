@@ -11,7 +11,7 @@ public class Paddle : MonoBehaviour
     private float rotationSpeed = 2000f; // The speed at which the paddle rotates
 
     private Rigidbody2D _rb;
-    private int _id;
+    // private int _id;
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
